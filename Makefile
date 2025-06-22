@@ -64,3 +64,7 @@ php-cs-fixer:
 .PHONY: php-cs-fixer-fix
 php-cs-fixer-fix:
 	docker compose exec baseball-game-management-app vendor/bin/php-cs-fixer fix
+
+.PHONY: phpunit
+phpunit:
+	docker compose exec baseball-game-management-app env XDEBUG_MODE=coverage vendor/bin/phpunit --coverage-html coverage/
