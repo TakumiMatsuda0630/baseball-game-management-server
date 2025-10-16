@@ -7,10 +7,10 @@ namespace Application\Domain\Stadium\Entity;
 use Application\Domain\Stadium\ValueObject\StadiumId;
 use Application\Domain\Stadium\ValueObject\StadiumName;
 
-readonly class Stadium
+class Stadium
 {
     public function __construct(
-        private StadiumId $id, 
+        private readonly StadiumId $id, 
         private StadiumName $name
     )
     {}
@@ -23,6 +23,11 @@ readonly class Stadium
     public function name(): StadiumName
     {
         return $this->name;
+    }
+
+    public function setName(StadiumName $stadiumName): void
+    {
+        $this->name = $stadiumName;
     }
 
     public function toArray(): array
