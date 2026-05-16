@@ -1,10 +1,15 @@
 <?php
 
+use Application\Http\Controllers\Admin\LoginController;
 use Illuminate\Support\Facades\Route;
 use Application\Http\Controllers\Admin\StadiumController;
 
 // 管理画面
 Route::prefix('admin')->group(function (){
+    // ログイン画面表示
+    Route::get('/login', [LoginController::class, 'index'])
+        ->name('login');
+
     // 球場管理
     Route::get('/stadium', [StadiumController::class, 'index'])
         ->name('stadium.index');
