@@ -9,8 +9,11 @@ export default {
 
 <script setup lang="ts">
 
-import { router } from '@inertiajs/vue3';
-import { ref, Ref } from 'vue';
+import { router, usePage } from '@inertiajs/vue3';
+import { computed, ref, Ref } from 'vue';
+
+const page = usePage();
+const errors = computed(() => page.props.errors);
 
 const valid: Ref<boolean> = ref(false);
 const email: Ref<string> = ref('');
@@ -47,6 +50,14 @@ const submit = (): void => {
 
     <v-form v-model="valid" @submit.prevent="submit">
         <v-container>
+            <v-alert
+                v-if="errors.error"
+                type="error"
+                class="mb-4"
+            >
+                {{ errors.error }}
+            </v-alert>
+
             <v-text-field
                 v-model="email"
                 :rules="emailRules"
