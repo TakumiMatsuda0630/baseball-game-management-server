@@ -54,3 +54,17 @@ DBサーバのコンテナに入り、MySQLを利用するには以下のコマ�
 docker compose exec db mysql -u root -ppassword
 ```
 
+# ローカル開発tips
+## 管理画面用ユーザ
+アプリケーションサーバ(baseball-game-management-app)に入り、シーダーを実行すると管理画面用ユーザがuserテーブルに登録されます。
+```bash
+docker compose exec baseball-game-management-app bash
+[コンテナ内で実行] php artisan migrate
+[コンテナ内で実行] php artisan db:seed
+```
+
+## 管理画面のログイン方法
+* `http://localhost:8080/admin/login` にアクセスし、以下のユーザ情報を入力してログインする
+  * メールアドレス：`test@test.com`
+  * パスワード : `password1234`
+
