@@ -4,7 +4,7 @@
 
 
 <template>
-    <v-app class="d-flex flex-column"とstyle="min-height: 100vh;">
+    <v-app class="d-flex flex-column" style="min-height: 100vh;">
         <!-- ヘッダ -->
         <v-app-bar color="primary">
             <template v-slot:prepend>
@@ -13,7 +13,7 @@
             </template>
             <v-app-bar-title>試合予定管理アプリ</v-app-bar-title>
         </v-app-bar>
-        
+
         <!-- メインコンテンツ -->
         <v-main>
             <v-container class="py-4">
