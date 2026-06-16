@@ -10,7 +10,7 @@ use Application\Domain\Stadium\ValueObject\StadiumName;
 class Stadium
 {
     public function __construct(
-        private readonly StadiumId $id, 
+        private readonly StadiumId $id,
         private StadiumName $name
     )
     {}
@@ -30,6 +30,9 @@ class Stadium
         $this->name = $stadiumName;
     }
 
+    /**
+     * @return array<string, string>
+     */
     public function toArray(): array
     {
         return [

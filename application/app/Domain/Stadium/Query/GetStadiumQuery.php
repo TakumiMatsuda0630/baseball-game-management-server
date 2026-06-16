@@ -10,16 +10,23 @@ readonly class GetStadiumQuery
 {
     /**
      * 球場一覧の取得
-     * @return array<string, int|string>
+     * @return ?array<string, int|string>
      */
-    public function getStadiumById(int $id): array
+    public function getStadiumById(int $id): ?array
     {
-        $stadiums = StadiumModel::query()
+        $stadium = StadiumModel::query()
             ->select('id', 'stadium_name')
             ->where('id', '=', $id)
             ->first();
 
+        if ($stadium === null) {
+            return null;
+        }
 
-        return $stadiums->toArray();
+        // TODO Read Modelのインスタンスを返却するようにしたい.
+        return [
+            'id' => $stadium->id,
+            'stadium_name' => $stadium->stadium_name,
+    ];
     }
 }

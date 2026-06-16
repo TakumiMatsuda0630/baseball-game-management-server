@@ -14,11 +14,14 @@ readonly class GetStadiumsQuery
      */
     public function getStadiums(): array
     {
+        // TODO Read Modelの配列形式で返却するようにしたい.
+        /** @var array<int, array{id:int, stadium_name:string}> $stadiums */
         $stadiums = StadiumModel::query()
             ->select('id', 'stadium_name')
-            ->get();
+            ->get()
+            ->toArray();
 
 
-        return $stadiums->toArray();
+        return $stadiums;
     }
 }
