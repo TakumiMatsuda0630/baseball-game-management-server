@@ -24,7 +24,7 @@ interface StadiumRepositoryInterface
 
     /**
      * 球場の削除
-     * @param StadiumId $id
+     * @param Stadium $stadium
      */
     public function delete(Stadium $stadium): void;
 }

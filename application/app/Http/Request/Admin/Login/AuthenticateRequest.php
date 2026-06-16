@@ -24,7 +24,7 @@ class AuthenticateRequest extends FormRequest
      */
     public function email(): string
     {
-        return $this->input('email');
+        return $this->string('email')->toString();
     }
 
     /**
@@ -32,6 +32,6 @@ class AuthenticateRequest extends FormRequest
      */
     public function password(): string
     {
-        return $this->input('password');
+        return $this->string('password')->toString();
     }
 }

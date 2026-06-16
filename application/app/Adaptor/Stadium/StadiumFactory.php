@@ -33,6 +33,7 @@ class StadiumFactory implements StadiumFactoryInterface
      */
     private function generateStadiumId(): int
     {
+        /** @var int $maxId */
         $maxId = StadiumModel::max('id');
         return $maxId ? $maxId + 1 : 1;
     }

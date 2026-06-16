@@ -9,6 +9,7 @@ use Application\Http\Request\Admin\Login\AuthenticateRequest;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Support\Facades\Auth;
 use Inertia\Response;
+use Inertia\ResponseFactory;
 
 class LoginController extends Controller
 {
@@ -19,18 +20,14 @@ class LoginController extends Controller
 
     /**
      * ログイン画面の表示
-     *
-     * @return Response
      */
-    public function index(): Response
+    public function index(): Response|ResponseFactory
     {
         return inertia('Auth/Login', []);
     }
 
     /**
      * ログイン処理
-     *
-     * @return Response|RedirectResponse
      */
     public function authenticate(AuthenticateRequest $request): Response|RedirectResponse
     {
@@ -52,8 +49,6 @@ class LoginController extends Controller
 
     /**
      * ログアウト処理
-     *
-     * @return RedirectResponse
      */
     public function logout(): RedirectResponse
     {

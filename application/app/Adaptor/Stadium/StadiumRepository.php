@@ -30,7 +30,7 @@ readonly class StadiumRepository implements StadiumRepositoryInterface
             ->first();
 
         if (!$stadiumData) {
-            null;
+            return null;
         }
 
         return new Stadium(
@@ -54,7 +54,7 @@ readonly class StadiumRepository implements StadiumRepositoryInterface
 
     /**
      * 球場の削除
-     * @param StadiumId $id
+     * @param Stadium $stadium
      */
     public function delete(Stadium $stadium): void
     {

@@ -23,6 +23,6 @@ class UpdateStadiumRequest extends FormRequest
      */
     public function stadiumName(): string
     {
-        return $this->input('stadium_name');
+        return $this->string('stadium_name')->toString();
     }
 }

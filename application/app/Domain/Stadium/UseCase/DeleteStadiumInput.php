@@ -17,7 +17,7 @@ readonly class DeleteStadiumInput
     /**
      * 球場IDを取得
      *
-     * @return string
+     * @return int
      */
     public function getId(): int
     {

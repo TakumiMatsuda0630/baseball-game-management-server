@@ -17,6 +17,7 @@ use Application\Domain\Stadium\UseCase\DeleteStadiumInput;
 use Application\Domain\Stadium\UseCase\DeleteStadiumUseCase;
 use Illuminate\Http\RedirectResponse;
 use Inertia\Response;
+use Inertia\ResponseFactory;
 
 class StadiumController extends Controller
 {
@@ -28,15 +29,13 @@ class StadiumController extends Controller
         private readonly DeleteStadiumUseCase $deleteStadiumUseCase,
     )
     {
-        
+
     }
 
     /**
      * 球場一覧画面の表示
-     *
-     * @return Response
      */
-    public function index(): Response
+    public function index(): Response|ResponseFactory
     {
         // 球場一覧を取得
         $stadiums = $this->getStadiumsQuery->getStadiums();
@@ -48,10 +47,8 @@ class StadiumController extends Controller
 
     /**
      * 球場登録画面の表示
-     *
-     * @return Response
      */
-    public function create(): Response
+    public function create(): Response|ResponseFactory
     {
         // 球場一覧を取得
         $stadiums = $this->getStadiumsQuery->getStadiums();
@@ -61,10 +58,8 @@ class StadiumController extends Controller
 
     /**
      * 球場の登録
-     *
-     * @return RedirectResponse|Response
      */
-    public function store(StoreStadiumRequest $request): RedirectResponse|Response
+    public function store(StoreStadiumRequest $request): RedirectResponse|Response|ResponseFactory
     {
         $input = new StoreStadiumInput(
             $request->stadiumName()
@@ -88,14 +83,13 @@ class StadiumController extends Controller
 
     /**
      * 球場詳細画面の表示
-     *
-     * @return Response
      */
-    public function edit(int $id): Response
+    public function edit(int $id): Response|ResponseFactory
     {
         // 球場一覧を取得
         $stadium = $this->getStadiumQuery->getStadiumById($id);
 
+        // TODO 存在しないIDを指定し、該当の球場が見つからない場合は404ページを返却する。
         return inertia('Stadium/Edit', [
             'stadium' => $stadium,
         ]);
@@ -103,10 +97,8 @@ class StadiumController extends Controller
 
     /**
      * 球場の更新
-     *
-     * @return RedirectResponse|Response
      */
-    public function update(UpdateStadiumRequest $request, int $id): RedirectResponse|Response
+    public function update(UpdateStadiumRequest $request, int $id): RedirectResponse|Response|ResponseFactory
     {
         $input = new UpdateStadiumInput(
             $id,

@@ -4,13 +4,14 @@ declare(strict_types=1);
 
 namespace Application\Models;
 
-use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
+/**
+ * @property int $id
+ * @property string $stadium_name
+ */
 class Stadium extends Model
 {
-    use HasFactory;
-
     /**
      * @var string
      */
