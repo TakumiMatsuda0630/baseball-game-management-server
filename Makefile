@@ -55,7 +55,7 @@ key-generate:
 
 .PHONY: phpstan
 phpstan:
-	docker compose exec baseball-game-management-app vendor/bin/phpstan analyse -c phpstan.neon --memory-limit=128M
+	docker compose exec baseball-game-management-app vendor/bin/phpstan analyse -c phpstan.neon --memory-limit=512M
 
 .PHONY: php-cs-fixer
 php-cs-fixer:
