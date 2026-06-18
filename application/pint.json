@@ -13,12 +13,12 @@
         },
         "phpdoc_separation": false,
         "phpdoc_align": {
-            "align": "vertical"
+            "align": "left"
         },
         "binary_operator_spaces": {
             "operators": {
-                "=>": "align_single_space_minimal",
-                "=": "align_single_space_minimal"
+                "=>": "single_space",
+                "=": "single_space"
             }
         },
         "trailing_comma_in_multiline": true,
