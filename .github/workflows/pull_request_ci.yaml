@@ -4,8 +4,33 @@ on:
   pull_request:
 
 jobs:
+  # 静的解析
   static-analysis:
-    name: Run PHPStan
+    name: PHPStan
+    runs-on: ubuntu-latest
+    defaults:
+      run:
+        # laravelのプロジェクトがapplicationフォルダ配下なので、全ステップの作業ディレクトリにapplicationを指定
+        working-directory: application
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Setup PHP
+        uses: shivammathur/setup-php@v2
+        with:
+          # PHPバージョン、拡張機能はDockerイメージに合わせておく
+          php-version: '8.2'
+          extensions: zip, pdo_mysql
+
+      - name: Install dependencies
+        run: composer install --prefer-dist --no-progress
+
+      - name: Run PHPStan
+        run: vendor/bin/phpstan analyse -c phpstan.neon --memory-limit=512M
+  # コード整形チェック
+  php-lint:
+    name: PHP Lint
     runs-on: ubuntu-latest
     defaults:
       run:
@@ -25,5 +50,5 @@ jobs:
       - name: Install dependencies
         run: composer install --prefer-dist --no-progress
 
-      - name: Run PHPStan
-        run: vendor/bin/phpstan analyse -c phpstan.neon --memory-limit=512M
+      - name: Run Laravel Pint
+        run: ./vendor/bin/pint --test
