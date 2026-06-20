@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Application\Domain\Stadium\UseCase;
 
 use Application\Domain\Stadium\StadiumFactoryInterface;
@@ -27,7 +29,6 @@ class StoreStadiumUseCase
             // 例外をキャッチして適切な処理を行う
             throw $e;
         }
-    
 
         try {
             // 球場を保存
@@ -36,6 +37,6 @@ class StoreStadiumUseCase
             // 保存に失敗した場合の処理
             throw $e;
         }
-        
+
     }
 }

@@ -4,13 +4,11 @@ declare(strict_types=1);
 
 namespace Application\Providers;
 
-use Illuminate\Support\ServiceProvider;
-use Application\Domain\Stadium\StadiumRepositoryInterface;
+use Application\Adaptor\Stadium\StadiumFactory;
 use Application\Adaptor\Stadium\StadiumRepository;
 use Application\Domain\Stadium\StadiumFactoryInterface;
-use Application\Adaptor\Stadium\StadiumFactory;
-use Illuminate\Support\Facades\Log;
-
+use Application\Domain\Stadium\StadiumRepositoryInterface;
+use Illuminate\Support\ServiceProvider;
 
 class AppServiceProvider extends ServiceProvider
 {

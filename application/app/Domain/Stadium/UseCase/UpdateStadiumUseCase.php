@@ -1,12 +1,14 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Application\Domain\Stadium\UseCase;
 
-use \InvalidArgumentException;
-use Exception;
 use Application\Domain\Stadium\StadiumRepositoryInterface;
-use Application\Domain\Stadium\ValueObject\StadiumName;
 use Application\Domain\Stadium\ValueObject\StadiumId;
+use Application\Domain\Stadium\ValueObject\StadiumName;
+use Exception;
+use InvalidArgumentException;
 
 class UpdateStadiumUseCase
 {
@@ -40,7 +42,6 @@ class UpdateStadiumUseCase
 
         // 球場名の更新
         $stadium->setName(new StadiumName($input->getName()));
-    
 
         try {
             // 球場を保存
@@ -49,6 +50,6 @@ class UpdateStadiumUseCase
             // 保存に失敗した場合の処理
             throw $e;
         }
-        
+
     }
 }

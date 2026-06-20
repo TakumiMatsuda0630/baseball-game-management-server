@@ -1,7 +1,9 @@
 <?php
 
 declare(strict_types=1);
+
 namespace Application\Http\Request\Admin\Stadium;
+
 use Illuminate\Foundation\Http\FormRequest;
 
 class UpdateStadiumRequest extends FormRequest

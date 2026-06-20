@@ -1,11 +1,13 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Application\Adaptor\Stadium;
 
-use Application\Domain\Stadium\StadiumFactoryInterface;
-use Application\Domain\Stadium\ValueObject\StadiumName;
-use Application\Domain\Stadium\ValueObject\StadiumId;
 use Application\Domain\Stadium\Entity\Stadium;
+use Application\Domain\Stadium\StadiumFactoryInterface;
+use Application\Domain\Stadium\ValueObject\StadiumId;
+use Application\Domain\Stadium\ValueObject\StadiumName;
 use Application\Models\Stadium as StadiumModel;
 
 class StadiumFactory implements StadiumFactoryInterface

@@ -1,12 +1,13 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Application\Domain\Stadium\UseCase;
 
-use \InvalidArgumentException;
-use Exception;
 use Application\Domain\Stadium\StadiumRepositoryInterface;
-use Application\Domain\Stadium\ValueObject\StadiumName;
 use Application\Domain\Stadium\ValueObject\StadiumId;
+use Exception;
+use InvalidArgumentException;
 
 class DeleteStadiumUseCase
 {
@@ -45,6 +46,6 @@ class DeleteStadiumUseCase
             // 削除に失敗した場合の処理
             throw $e;
         }
-        
+
     }
 }

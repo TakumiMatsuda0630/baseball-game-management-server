@@ -12,8 +12,8 @@ class Stadium
     public function __construct(
         private readonly StadiumId $id,
         private StadiumName $name
-    )
-    {}
+    ) {
+    }
 
     public function id(): StadiumId
     {

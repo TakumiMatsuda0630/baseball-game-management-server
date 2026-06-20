@@ -1,8 +1,10 @@
 <?php
 
+declare(strict_types=1);
+
 use Application\Http\Controllers\Admin\LoginController;
-use Illuminate\Support\Facades\Route;
 use Application\Http\Controllers\Admin\StadiumController;
+use Illuminate\Support\Facades\Route;
 
 // 未ログイン用ルート
 Route::middleware('guest')->group(function () {
@@ -15,7 +17,7 @@ Route::middleware('guest')->group(function () {
 // 管理画面ログイン済用ルート
 Route::prefix('admin')
     ->middleware('auth')
-    ->group(function (){
+    ->group(function () {
         // ホーム画面
         // TODO Controllerを作成すること。(手間を省くためにControllerを作成せず、直接レスポンスを返却している)
         Route::get('/home', static function () {

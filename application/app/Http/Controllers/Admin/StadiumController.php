@@ -4,17 +4,17 @@ declare(strict_types=1);
 
 namespace Application\Http\Controllers\Admin;
 
-use Application\Http\Controllers\Controller;
-use Application\Domain\Stadium\Query\GetStadiumsQuery;
 use Application\Domain\Stadium\Query\GetStadiumQuery;
-use Application\Http\Request\Admin\Stadium\StoreStadiumRequest;
-use Application\Http\Request\Admin\Stadium\UpdateStadiumRequest;
+use Application\Domain\Stadium\Query\GetStadiumsQuery;
+use Application\Domain\Stadium\UseCase\DeleteStadiumInput;
+use Application\Domain\Stadium\UseCase\DeleteStadiumUseCase;
 use Application\Domain\Stadium\UseCase\StoreStadiumInput;
 use Application\Domain\Stadium\UseCase\StoreStadiumUseCase;
 use Application\Domain\Stadium\UseCase\UpdateStadiumInput;
 use Application\Domain\Stadium\UseCase\UpdateStadiumUseCase;
-use Application\Domain\Stadium\UseCase\DeleteStadiumInput;
-use Application\Domain\Stadium\UseCase\DeleteStadiumUseCase;
+use Application\Http\Controllers\Controller;
+use Application\Http\Request\Admin\Stadium\StoreStadiumRequest;
+use Application\Http\Request\Admin\Stadium\UpdateStadiumRequest;
 use Illuminate\Http\RedirectResponse;
 use Inertia\Response;
 use Inertia\ResponseFactory;
@@ -27,8 +27,7 @@ class StadiumController extends Controller
         private readonly StoreStadiumUseCase $storeStadiumUseCase,
         private readonly UpdateStadiumUseCase $updateStadiumUseCase,
         private readonly DeleteStadiumUseCase $deleteStadiumUseCase,
-    )
-    {
+    ) {
 
     }
 

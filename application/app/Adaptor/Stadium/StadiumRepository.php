@@ -5,9 +5,9 @@ declare(strict_types=1);
 namespace Application\Adaptor\Stadium;
 
 use Application\Domain\Stadium\Entity\Stadium;
+use Application\Domain\Stadium\StadiumRepositoryInterface;
 use Application\Domain\Stadium\ValueObject\StadiumId;
 use Application\Domain\Stadium\ValueObject\StadiumName;
-use Application\Domain\Stadium\StadiumRepositoryInterface;
 use Application\Models\Stadium as StadiumModel;
 
 readonly class StadiumRepository implements StadiumRepositoryInterface
