@@ -3,14 +3,24 @@ name: Pull Request CI
 on:
   pull_request:
 
+# 二重起動防止の設定
+# 同じPRで新しいコミットがプッシュされたら、実行中の古いジョブを自動でキャンセル
+concurrency:
+  group: ${{ github.workflow }}-${{ github.ref }}
+  cancel-in-progress: true
+
+defaults:
+  run:
+    shell: bash
+
 jobs:
   # 静的解析
   static-analysis:
     name: PHPStan
     runs-on: ubuntu-latest
+    timeout-minutes: 10 # 分
     defaults:
       run:
-        # laravelのプロジェクトがapplicationフォルダ配下なので、全ステップの作業ディレクトリにapplicationを指定
         working-directory: application
     steps:
       - name: Checkout code
@@ -19,7 +29,6 @@ jobs:
       - name: Setup PHP
         uses: shivammathur/setup-php@v2
         with:
-          # PHPバージョン、拡張機能はDockerイメージに合わせておく
           php-version: '8.2'
           extensions: zip, pdo_mysql
 
@@ -28,10 +37,13 @@ jobs:
 
       - name: Run PHPStan
         run: vendor/bin/phpstan analyse -c phpstan.neon --memory-limit=512M
-  # コード整形チェック
+
+  # コード整形チェック（Pint）
   php-lint:
-    name: PHP Lint
+    name: PHP Lint (Pint)
     runs-on: ubuntu-latest
+    timeout-minutes: 5 # タイムアウト設定（一般的にPintはPHPStanより早く終わるため短めに設定）
+    needs: static-analysis # PHPStanのジョブが「正常終了した後」に実行する設定
     defaults:
       run:
         # laravelのプロジェクトがapplicationフォルダ配下なので、全ステップの作業ディレクトリにapplicationを指定
@@ -43,9 +55,8 @@ jobs:
       - name: Setup PHP
         uses: shivammathur/setup-php@v2
         with:
-          # PHPバージョン、拡張機能はDockerイメージに合わせておく
           php-version: '8.2'
-          extension: zip, pdo_mysql
+          extensions: zip, pdo_mysql # 元ファイルで「extension」になっていたタイポを「extensions」に修正
 
       - name: Install dependencies
         run: composer install --prefer-dist --no-progress
