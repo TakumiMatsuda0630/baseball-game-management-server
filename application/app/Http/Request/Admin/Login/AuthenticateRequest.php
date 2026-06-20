@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Application\Http\Request\Admin\Login;
 
 use Illuminate\Foundation\Http\FormRequest;

@@ -21,7 +21,6 @@ readonly class GetStadiumsQuery
             ->get()
             ->toArray();
 
-
         return $stadiums;
     }
 }

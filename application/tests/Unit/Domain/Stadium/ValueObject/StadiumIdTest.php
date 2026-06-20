@@ -10,13 +10,12 @@ use Tests\TestCase;
 
 class StadiumIdTest extends TestCase
 {
-
     /**
      * インスタンスを生成し、正常に値を保持すること
      */
     public function testValidStadiumId(): void
     {
-        $id        = 12345678901;
+        $id = 12345678901;
         $stadiumId = new StadiumId($id);
 
         $this->assertSame($id, $stadiumId->toInt());

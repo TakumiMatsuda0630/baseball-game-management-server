@@ -4,8 +4,8 @@ declare(strict_types=1);
 
 namespace Tests\Unit\Domain\Stadium\ValueObject;
 
-use InvalidArgumentException;
 use Application\Domain\Stadium\ValueObject\StadiumName;
+use InvalidArgumentException;
 use Tests\TestCase;
 
 class StadiumNameTest extends TestCase
@@ -14,7 +14,8 @@ class StadiumNameTest extends TestCase
      * インスタンスを生成し、正しく値を保持すること
      */
     public function testStadiumName(): void
-    {;
+    {
+        ;
         $stadiumNameStr = 'test stadium name';
         $stadiumName = new StadiumName($stadiumNameStr);
         $this->assertEquals($stadiumNameStr, (string)$stadiumName);

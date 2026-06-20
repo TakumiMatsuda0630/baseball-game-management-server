@@ -17,7 +17,7 @@ readonly class StadiumName
         if ($value === '') {
             throw new InvalidArgumentException('StadiumName cannot be empty.');
         }
-        
+
         $length = mb_strlen($value);
         if ($length > self::MAX_LENGTH) {
             throw new InvalidArgumentException('StadiumName must be between 1 and 100 characters long.');
