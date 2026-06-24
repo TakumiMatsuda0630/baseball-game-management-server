@@ -3,6 +3,11 @@ name: Pull Request CI
 on:
   pull_request:
 
+env:
+  # PHPバージョン、拡張機能はDockerfileの定義と合わせておく.
+  PHP_VERSION: '8.2'
+  PHP_EXTENSIONS: 'zip, pdo_mysql'
+
 # 二重起動防止の設定
 # 同じPRで新しいコミットがプッシュされたら、実行中の古いジョブを自動でキャンセル
 concurrency:
@@ -29,8 +34,8 @@ jobs:
       - name: Setup PHP
         uses: shivammathur/setup-php@v2
         with:
-          php-version: '8.2'
-          extensions: zip, pdo_mysql
+          php-version: ${{ env.PHP_VERSION }}
+          extensions: ${{ env.PHP_EXTENSIONS }}
 
       - name: Install dependencies
         run: composer install --prefer-dist --no-progress
@@ -43,7 +48,6 @@ jobs:
     name: PHP Lint (Pint)
     runs-on: ubuntu-latest
     timeout-minutes: 5 # タイムアウト設定（一般的にPintはPHPStanより早く終わるため短めに設定）
-    needs: static-analysis # PHPStanのジョブが「正常終了した後」に実行する設定
     defaults:
       run:
         # laravelのプロジェクトがapplicationフォルダ配下なので、全ステップの作業ディレクトリにapplicationを指定
@@ -55,11 +59,38 @@ jobs:
       - name: Setup PHP
         uses: shivammathur/setup-php@v2
         with:
-          php-version: '8.2'
-          extensions: zip, pdo_mysql # 元ファイルで「extension」になっていたタイポを「extensions」に修正
+          php-version: ${{ env.PHP_VERSION }}
+          extensions: ${{ env.PHP_EXTENSIONS }}
 
       - name: Install dependencies
         run: composer install --prefer-dist --no-progress
 
       - name: Run Laravel Pint
         run: ./vendor/bin/pint --test
+
+  # 単体テスト
+  php-test:
+    name: PHPUnit
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    needs: [static-analysis, php-lint] # PHPStan、Lintが通った後に実行
+    defaults:
+      run:
+        working-directory: application
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v7
+
+      - name: Setup PHP
+        uses: shivammathur/setup-php@v2
+        with:
+          php-version: ${{ env.PHP_VERSION }}
+          extensions: ${{ env.PHP_EXTENSIONS }}
+
+      - name: Install dependencies
+        run: composer install --prefer-dist --no-progress
+
+      - name: Run PHPUnit Unit Suite
+        # --testsuite オプションで「Unit」のみを指定して実行.
+        # TODO FeatureテストなどをCIで導入できるよう、DBの用意なども検討する。まずはCIでのテスト導入を優先してunit testのみ実行する.
+        run: ./vendor/bin/phpunit --testsuite=Unit
