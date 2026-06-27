@@ -9,7 +9,6 @@ env:
   PHP_EXTENSIONS: 'zip, pdo_mysql'
 
 # 二重起動防止の設定
-# 同じPRで新しいコミットがプッシュされたら、実行中の古いジョブを自動でキャンセル
 concurrency:
   group: ${{ github.workflow }}-${{ github.ref }}
   cancel-in-progress: true
@@ -31,14 +30,13 @@ jobs:
       - name: Checkout code
         uses: actions/checkout@v7
 
-      - name: Setup PHP
-        uses: shivammathur/setup-php@v2
+      # 💡 共通化したローカルアクションで、php、composerパッケージをセットアップ
+      - name: Setup PHP and Install Dependencies
+        uses: ./.github/actions/setup-php-composer
         with:
           php-version: ${{ env.PHP_VERSION }}
-          extensions: ${{ env.PHP_EXTENSIONS }}
-
-      - name: Install dependencies
-        run: composer install --prefer-dist --no-progress
+          php-extensions: ${{ env.PHP_EXTENSIONS }}
+          working-directory: 'application'
 
       - name: Run PHPStan
         run: vendor/bin/phpstan analyse -c phpstan.neon --memory-limit=512M
@@ -50,20 +48,17 @@ jobs:
     timeout-minutes: 5 # タイムアウト設定（一般的にPintはPHPStanより早く終わるため短めに設定）
     defaults:
       run:
-        # laravelのプロジェクトがapplicationフォルダ配下なので、全ステップの作業ディレクトリにapplicationを指定
         working-directory: application
     steps:
       - name: Checkout code
         uses: actions/checkout@v7
 
-      - name: Setup PHP
-        uses: shivammathur/setup-php@v2
+      - name: Setup PHP and Install Dependencies
+        uses: ./.github/actions/setup-php-composer
         with:
           php-version: ${{ env.PHP_VERSION }}
-          extensions: ${{ env.PHP_EXTENSIONS }}
-
-      - name: Install dependencies
-        run: composer install --prefer-dist --no-progress
+          php-extensions: ${{ env.PHP_EXTENSIONS }}
+          working-directory: 'application'
 
       - name: Run Laravel Pint
         run: ./vendor/bin/pint --test
@@ -81,14 +76,12 @@ jobs:
       - name: Checkout code
         uses: actions/checkout@v7
 
-      - name: Setup PHP
-        uses: shivammathur/setup-php@v2
+      - name: Setup PHP and Install Dependencies
+        uses: ./.github/actions/setup-php-composer
         with:
           php-version: ${{ env.PHP_VERSION }}
-          extensions: ${{ env.PHP_EXTENSIONS }}
-
-      - name: Install dependencies
-        run: composer install --prefer-dist --no-progress
+          php-extensions: ${{ env.PHP_EXTENSIONS }}
+          working-directory: 'application'
 
       - name: Run PHPUnit Unit Suite
         # --testsuite オプションで「Unit」のみを指定して実行.
