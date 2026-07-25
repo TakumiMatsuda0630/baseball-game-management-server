@@ -37,7 +37,7 @@ class StadiumRepositoryTest extends TestCase
         $stadium = $stadiumRepository->getStadiumById(new StadiumId($id));
 
         // 実行結果のアサーション
-        $this->assertSame($id, $stadium->id()->toInt());
+        $this->assertSame($id, $stadium?->id()->toInt());
         $this->assertSame($stadiumName, (string) $stadium->name());
     }
 
@@ -88,7 +88,7 @@ class StadiumRepositoryTest extends TestCase
         $registeredStadium = StadiumModel::query()
             ->find($newStadiumId);
 
-        $this->assertSame($newStadiumId, $registeredStadium->id);
+        $this->assertSame($newStadiumId, $registeredStadium?->id);
         $this->assertSame($newStadiumName, $registeredStadium->stadium_name);
     }
 
@@ -124,7 +124,7 @@ class StadiumRepositoryTest extends TestCase
             ->find($id);
 
         //
-        $this->assertSame($updatedStadiumName, $updatedStadium->stadium_name);
+        $this->assertSame($updatedStadiumName, $updatedStadium?->stadium_name);
     }
 
     /**

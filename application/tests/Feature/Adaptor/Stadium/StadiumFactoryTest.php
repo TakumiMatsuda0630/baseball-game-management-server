@@ -19,7 +19,9 @@ class StadiumFactoryTest extends TestCase
     public function testCreateStadium(): void
     {
         $stadiumName = 'testName';
-        $expedtedStadiumId = (int) StadiumModel::query()->max('id') + 1;
+        /** @var int $maxId */
+        $maxId = StadiumModel::max('id');
+        $expedtedStadiumId = $maxId + 1;
 
         // StadiumFactoryのインスタンスを生成
         $stadiumFactory = app(StadiumFactoryInterface::class);
