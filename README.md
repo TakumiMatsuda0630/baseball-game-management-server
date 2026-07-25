@@ -51,7 +51,7 @@ docker compose exec baseball-game-management-app php artisan key:generate
 DBサーバはMySQLを利用しています。
 DBサーバのコンテナに入り、MySQLを利用するには以下のコマンドを実行してください。
 ```bash
-docker compose exec db mysql -u root -ppassword
+docker compose exec baseball-game-management-db mysql -u user -puserpassword
 ```
 
 # ローカル開発tips
