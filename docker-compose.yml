@@ -50,6 +50,25 @@ services:
     networks:
       - basegall-game-management-network
 
+  baseball-game-management-test-db:
+    container_name: "baseball-game-management-test-db"
+    build:
+      context: .
+      dockerfile: ./docker/db/Dockerfile
+    ports:
+      #localhostのポートはローカル開発用dbコンテナと重複しないように3307を利用
+      - "3307:3306"
+    environment:
+      - "MYSQL_ROOT_PASSWORD=password"
+      - "MYSQL_DATABASE=baseball-game-management-db"
+      - "MYSQL_USER=user"
+      - "MYSQL_PASSWORD=userpassword"
+    volumes:
+      # ボリュームはローカル開発用DBコンテナと分けて重複しないようにする
+      - "./docker/db/test_data:/var/lib/mysql"
+    networks:
+      - basegall-game-management-network
+
 # ネットワークの定義
 networks:
   basegall-game-management-network:

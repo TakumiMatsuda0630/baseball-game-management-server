@@ -18,11 +18,17 @@ class Stadium extends Model
     protected $table = 'stadiums';
 
     /**
+     * @var bool
+     */
+    public $incrementing = false;
+
+    /**
      * The attributes that are mass assignable.
      *
      * @var list<string>
      */
     protected $fillable = [
+        'id',
         'stadium_name',
     ];
 }
