@@ -35,7 +35,7 @@ const passwordRule = [
 const showPassword = ref(false);
 
 const submit = (): void => {
-    router.post('/admin/login/auth/', {
+    router.post('/admin/login/auth', {
         email: email.value,
         password: password.value
     })

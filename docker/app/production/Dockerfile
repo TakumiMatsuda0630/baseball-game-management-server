@@ -48,4 +48,4 @@ RUN npm ci && npm run build
 RUN chown -R www-data:www-data /var/www/html/storage /var/www/html/bootstrap/cache
 
 # 11. 起動時にAivenのCA証明書を環境変数からファイルに書き出す処理
-CMD ["sh", "-c", "if [ -n \"$DB_SSL_CA\" ]; then echo \"$DB_SSL_CA\" > /var/www/html/ca.pem; fi && exec apache2-foreground"]
+CMD ["sh", "-c", "php artisan env:decrypt --env=production --force && cp /var/www/html/.env.production /var/www/html/.env && if [ -n \"$DB_SSL_CA\" ]; then echo \"$DB_SSL_CA\" > /var/www/html/ca.pem; fi && php artisan migrate --force && exec apache2-foreground"]
