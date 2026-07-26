@@ -48,3 +48,8 @@ jobs:
           # ビルドを高速化するためのキャッシュ設定
           cache-from: type=gha
           cache-to: type=gha,mode=max
+
+      # 5. デプロイ先のRenderのWebhookにリクエストし、Renderでデプロイコマンドを実行
+      - name: Trigger Render Deployment
+        run: |
+          curl -X POST "${{ secrets.RENDER_DEPLOY_HOOK }}"
