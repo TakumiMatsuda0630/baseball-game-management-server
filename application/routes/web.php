@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 use Application\Http\Controllers\Admin\LoginController;
 use Application\Http\Controllers\Admin\StadiumController;
+use Application\Http\Controllers\Admin\TeamController;
 use Illuminate\Support\Facades\Route;
 
 // 未ログイン用ルート
@@ -37,6 +38,23 @@ Route::prefix('admin')
             ->name('stadium.update');
         Route::delete('/stadium/delete/{id}', [StadiumController::class, 'destroy'])
             ->name('stadium.destroy');
+
+        // チーム管理
+        Route::get('/team', [TeamController::class, 'index'])
+            ->name('team.index');
+        Route::get('/team/regist', [TeamController::class, 'create'])
+            ->name('team.create');
+        Route::post('/team/store', [TeamController::class, 'store'])
+            ->name('team.store');
+        Route::get('/team/edit/{id}', [TeamController::class, 'edit'])
+            ->whereUuid('id')
+            ->name('team.edit');
+        Route::put('/team/update/{id}', [TeamController::class, 'update'])
+            ->whereUuid('id')
+            ->name('team.update');
+        Route::delete('/team/delete/{id}', [TeamController::class, 'destroy'])
+            ->whereUuid('id')
+            ->name('team.destroy');
 
         Route::get('logout', [LoginController::class, 'logout'])
             ->name('logout');
