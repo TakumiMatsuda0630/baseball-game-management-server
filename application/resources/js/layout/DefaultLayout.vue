@@ -37,6 +37,9 @@ const movePage = (path: string): void => {
                 <div @click="movePage('/admin/stadium')">
                     <v-list-item link prepend-icon="mdi-baseball-diamond" title="球場一覧"></v-list-item>
                 </div>
+                <div @click="movePage('/admin/team')">
+                    <v-list-item link prepend-icon="mdi-account-group" title="チーム一覧"></v-list-item>
+                </div>
             </v-list>
 
             <template v-slot:append>
