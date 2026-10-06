@@ -5,11 +5,11 @@ declare(strict_types=1);
 namespace Application\Providers;
 
 use Application\Adaptor\GameSchedule\GameScheduleRepository;
-use Application\Domain\GameSchedule\GameScheduleRepositoryInterface;
 use Application\Adaptor\Stadium\StadiumFactory;
 use Application\Adaptor\Stadium\StadiumRepository;
 use Application\Adaptor\Team\TeamFactory;
 use Application\Adaptor\Team\TeamRepository;
+use Application\Domain\GameSchedule\GameScheduleRepositoryInterface;
 use Application\Domain\Stadium\StadiumFactoryInterface;
 use Application\Domain\Stadium\StadiumRepositoryInterface;
 use Application\Domain\Team\TeamFactoryInterface;
