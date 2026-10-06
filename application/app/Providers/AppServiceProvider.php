@@ -4,10 +4,12 @@ declare(strict_types=1);
 
 namespace Application\Providers;
 
+use Application\Adaptor\GameSchedule\GameScheduleRepository;
 use Application\Adaptor\Stadium\StadiumFactory;
 use Application\Adaptor\Stadium\StadiumRepository;
 use Application\Adaptor\Team\TeamFactory;
 use Application\Adaptor\Team\TeamRepository;
+use Application\Domain\GameSchedule\GameScheduleRepositoryInterface;
 use Application\Domain\Stadium\StadiumFactoryInterface;
 use Application\Domain\Stadium\StadiumRepositoryInterface;
 use Application\Domain\Team\TeamFactoryInterface;
@@ -22,24 +24,13 @@ class AppServiceProvider extends ServiceProvider
     public function register(): void
     {
         // Repositories
-        $this->app->bind(
-            StadiumRepositoryInterface::class,
-            StadiumRepository::class
-        );
-        $this->app->bind(
-            TeamRepositoryInterface::class,
-            TeamRepository::class
-        );
+        $this->app->bind(GameScheduleRepositoryInterface::class, GameScheduleRepository::class);
+        $this->app->bind(StadiumRepositoryInterface::class, StadiumRepository::class);
+        $this->app->bind(TeamRepositoryInterface::class, TeamRepository::class);
 
         // Factories
-        $this->app->bind(
-            StadiumFactoryInterface::class,
-            StadiumFactory::class
-        );
-        $this->app->bind(
-            TeamFactoryInterface::class,
-            TeamFactory::class
-        );
+        $this->app->bind(StadiumFactoryInterface::class, StadiumFactory::class);
+        $this->app->bind(TeamFactoryInterface::class, TeamFactory::class);
     }
 
     /**

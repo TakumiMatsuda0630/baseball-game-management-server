@@ -2,6 +2,7 @@
 
 declare(strict_types=1);
 
+use Application\Http\Controllers\Admin\GameScheduleController;
 use Application\Http\Controllers\Admin\LoginController;
 use Application\Http\Controllers\Admin\StadiumController;
 use Application\Http\Controllers\Admin\TeamController;
@@ -55,6 +56,14 @@ Route::prefix('admin')
         Route::delete('/team/delete/{id}', [TeamController::class, 'destroy'])
             ->whereUuid('id')
             ->name('team.destroy');
+
+        // 試合予定管理
+        Route::get('/game-schedule', [GameScheduleController::class, 'index'])->name('game-schedule.index');
+        Route::get('/game-schedule/regist', [GameScheduleController::class, 'create'])->name('game-schedule.create');
+        Route::post('/game-schedule/store', [GameScheduleController::class, 'store'])->name('game-schedule.store');
+        Route::get('/game-schedule/edit/{id}', [GameScheduleController::class, 'edit'])->whereNumber('id')->name('game-schedule.edit');
+        Route::put('/game-schedule/update/{id}', [GameScheduleController::class, 'update'])->whereNumber('id')->name('game-schedule.update');
+        Route::delete('/game-schedule/delete/{id}', [GameScheduleController::class, 'destroy'])->whereNumber('id')->name('game-schedule.destroy');
 
         Route::get('logout', [LoginController::class, 'logout'])
             ->name('logout');
